@@ -8,8 +8,11 @@ Minimal, repeatable baseline for deploying a Python Flask web app to Vercel. The
 - `requirements.txt` – Runtime dependencies.
 - `vercel.json` – Configures Vercel to build and route all traffic to `app.py` using the official Python runtime.
 - `.env.deploy.example` – Template for securely storing your Vercel token (copy to `.env.deploy`).
-- `deploy.ps1` – Helper script that loads the token from `.env.deploy` and invokes the Vercel CLI.
+- `deploy.ps1` – Deployment script for Windows (PowerShell).
+- `deploy.sh` – Deployment script for Linux/macOS (Bash).
+- `.github/workflows/deploy.yml` – GitHub Actions CI/CD automation.
 - `.gitignore` – Keeps local environment artifacts out of version control.
+- `DEPLOYMENT_GUIDE.md` – Comprehensive guide for agents and developers.
 
 ## Prerequisites
 
@@ -45,6 +48,7 @@ python app.py
 
 Use the helper script which wraps the Vercel CLI and injects the token automatically:
 
+**Windows (PowerShell):**
 ```powershell
 # Preview deployment (Vercel will provide a unique URL)
 ./deploy.ps1
@@ -53,7 +57,19 @@ Use the helper script which wraps the Vercel CLI and injects the token automatic
 ./deploy.ps1 -Prod
 ```
 
-Behind the scenes the script reads `VERCEL_TOKEN` from `.env.deploy` and runs `vercel deploy --token <token>`. For additional CLI flags (e.g., `--env`, `--build-env`), update `deploy.ps1` or invoke the CLI directly.
+**Linux/macOS (Bash):**
+```bash
+# Make executable (first time only)
+chmod +x deploy.sh
+
+# Preview deployment
+./deploy.sh
+
+# Production deployment
+./deploy.sh --prod
+```
+
+Behind the scenes the script reads `VERCEL_TOKEN` from `.env.deploy` and runs `vercel deploy --token <token>`. For additional CLI flags (e.g., `--env`, `--build-env`), update the deployment script or invoke the CLI directly.
 
 ## Customization Tips
 

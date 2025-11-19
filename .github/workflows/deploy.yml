@@ -33,6 +33,6 @@ jobs:
           python -c "from app import app; client = app.test_client(); resp = client.get('/'); assert resp.status_code == 200; print('✓ Tests passed')"
       
       - name: Deploy to Vercel
-        run: vercel deploy --prod --token ${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prod --yes --token ${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

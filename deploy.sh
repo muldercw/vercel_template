@@ -41,5 +41,5 @@ if ! command -v vercel &> /dev/null; then
 fi
 
 # Execute deployment
-echo "Running: vercel deploy --token \$VERCEL_TOKEN $PROD_FLAG"
-vercel deploy --token "$VERCEL_TOKEN" $PROD_FLAG
+echo "Running: vercel deploy --yes --token \$VERCEL_TOKEN $PROD_FLAG"
+vercel deploy --yes --token "$VERCEL_TOKEN" $PROD_FLAG

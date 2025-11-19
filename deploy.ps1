@@ -26,7 +26,7 @@ if (-not (Get-Command vercel -ErrorAction SilentlyContinue)) {
     throw "The 'vercel' CLI is not installed or not on PATH. Install via 'npm install -g vercel'."
 }
 
-$arguments = @("deploy", "--token", $env:VERCEL_TOKEN)
+$arguments = @("deploy", "--yes", "--token", $env:VERCEL_TOKEN)
 if ($Prod) {
     $arguments += "--prod"
 }

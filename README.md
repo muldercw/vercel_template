@@ -34,17 +34,37 @@ python app.py
 
 ## Deployment Setup
 
-1. Install the Vercel CLI if you have not already:
+### Option 1: Local Deployment (Manual)
+
+For local/manual deployments, you'll need the Vercel CLI and a token:
+
+1. Install the Vercel CLI:
    ```powershell
    npm install -g vercel
    ```
 2. Create your deployment env file:
    ```powershell
    Copy-Item .env.deploy.example .env.deploy
-   # edit .env.deploy and paste your real token
+   # edit .env.deploy and paste your real Vercel token
    ```
 
+### Option 2: Automated Deployment (GitHub Actions)
+
+For automated CI/CD deployments, **skip the `.env.deploy` file**. Instead:
+
+1. Push your code to GitHub
+2. Add `VERCEL_TOKEN` as a repository secret:
+   - Go to: `https://github.com/YOUR_USERNAME/YOUR_REPO/settings/secrets/actions`
+   - Click "New repository secret"
+   - Name: `VERCEL_TOKEN`
+   - Value: [paste your Vercel token]
+3. The GitHub Actions workflow (`.github/workflows/deploy.yml`) will automatically deploy on every push to `main` or `master`
+
+**Note:** You only need `.env.deploy` for local deployments. GitHub Actions handles secrets separately and securely.
+
 ## Deploying to Vercel
+
+### Manual Deployment (Local)
 
 Use the helper script which wraps the Vercel CLI and injects the token automatically:
 
@@ -70,6 +90,14 @@ chmod +x deploy.sh
 ```
 
 Behind the scenes the script reads `VERCEL_TOKEN` from `.env.deploy` and runs `vercel deploy --token <token>`. For additional CLI flags (e.g., `--env`, `--build-env`), update the deployment script or invoke the CLI directly.
+
+### Automated Deployment (GitHub Actions)
+
+The included workflow automatically deploys on every push to `main` or `master`. No local setup required—just:
+
+1. Add `VERCEL_TOKEN` to GitHub Secrets (see Deployment Setup above)
+2. Push your code
+3. Monitor deployments in the "Actions" tab
 
 ## Customization Tips
 

@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environments
+.env
+.env.*
+*.env
+.vercel
+.env.deploy
+
+# Vercel build artifacts
+.vercel*
